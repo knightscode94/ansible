@@ -1,0 +1,39 @@
+- hosts: nginxrun
+  become: true
+  tasks:
+  - name: install python3-pip
+    apt:
+      name: python3-pip
+  - name: Install NGINX
+    apt:
+      name: nginx
+      state: latest
+      update_cache: true
+  - name: Start NGINX Service
+    service:
+      name: nginx
+      state: started
+---
+- hosts: nginx
+  become: true
+  tasks:
+  - name: install python3-pip
+    apt:
+      name: python3-pip
+  - name: Install NGINX
+    apt:
+      name: nginx
+      state: latest
+      update_cache: true
+---
+  - hosts: docker
+    become: true
+    tasks:
+      - name: install python3-pip
+    apt:
+      name: python3-pip
+    - name: install docker
+      apt:
+        name: [docker-ce, docker-ce-cli, containerd.io]
+        
+

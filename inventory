@@ -1,0 +1,14 @@
+[docker]
+instance-1
+instance-2
+
+[nginx]
+instance-3
+
+[nginxrun]
+instance-2
+
+[vms:var]
+ansible_user:
+ansible_ssh_common_args=
+ansible_ssh_private_key_file=~/.ssh/ansible_id_rsa
