@@ -1,9 +1,6 @@
 - hosts: nginxrun
   become: true
   tasks:
-  - name: install python3-pip
-    apt:
-      name: python3-pip
   - name: Install NGINX
     apt:
       name: nginx
@@ -17,9 +14,6 @@
 - hosts: nginx
   become: true
   tasks:
-  - name: install python3-pip
-    apt:
-      name: python3-pip
   - name: Install NGINX
     apt:
       name: nginx
@@ -29,11 +23,36 @@
   - hosts: docker
     become: true
     tasks:
-      - name: install python3-pip
-    apt:
-      name: python3-pip
     - name: install docker
       apt:
-        name: [docker-ce, docker-ce-cli, containerd.io]
+      pkg:
+      - apt-get install 
+      - apt-transport-https 
+      - ca-certificates 
+      - curl 
+      - gnupg-agent 
+      - software-properties-common
+      state: latest
+      update_cache: true
+      
+    - name: add GPG KEY
+      apt_key: 
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    
+    - name: add repo
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename|lower }} stable
+        
+    - name: install docker
+      apt:
+        pkg:
+        - docker-ce
+        - docker-ce-cli 
+        - containerd.io
+        state: latest
+        update_cache: true
+        
+      
         
 
