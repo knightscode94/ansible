@@ -4,8 +4,6 @@ instance-2
 
 [nginx]
 instance-3
-
-[nginxrun]
 instance-2
 
 [vms:var]
